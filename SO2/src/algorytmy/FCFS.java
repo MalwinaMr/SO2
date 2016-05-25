@@ -6,7 +6,11 @@ import model.Odwolanie;
 public class FCFS {
 	
 	public int iloscPrzesuniec = 0;
-	Dysk dysk = new Dysk();
+	Dysk dysk;
+	
+	public FCFS(Dysk dysk){
+		this.dysk = dysk;
+	}
 	
 	public void wykonaj(){
 		int poprzedniBlok = dysk.odwolania.get(0).blok;

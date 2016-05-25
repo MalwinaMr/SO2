@@ -6,7 +6,11 @@ import model.Dysk;
 public class SSTF {
 
 	public int iloscPrzesuniec = 0;
-	Dysk dysk = new Dysk();
+	Dysk dysk;
+	
+	public SSTF(Dysk dysk){
+		this.dysk = dysk;
+	}
 	
 	public void wykonaj(){
 		int obecnyBlok = 50;

@@ -14,6 +14,18 @@ public class Dysk {
 		init();
 	}
 	
+	public Dysk(Dysk dysk){
+		bloki = new Blok[dysk.bloki.length];
+		odwolania = new ArrayList<>();
+		for(int i = 0 ; i < bloki.length ; i++){
+			bloki[i] = new Blok();
+		}
+		for(Odwolanie odwolanie : dysk.odwolania){
+			odwolania.add(new Odwolanie(odwolanie.czasPrzyjscia, odwolanie.blok));
+			bloki[odwolanie.blok].odwolania.add(new Odwolanie(odwolanie.czasPrzyjscia, odwolanie.blok));
+		}
+	}
+	
 	public void init(){
 		Random random = new Random();
 		bloki = new Blok[100];

@@ -6,7 +6,11 @@ import model.Dysk;
 public class SCAN {
 
 	public int iloscPrzesuniec = 0;
-	Dysk dysk = new Dysk();
+	Dysk dysk;
+	
+	public SCAN(Dysk dysk){
+		this.dysk = dysk;
+	}
 	
 	public void wykonaj(){
 		int obecnyBlok = 50;
