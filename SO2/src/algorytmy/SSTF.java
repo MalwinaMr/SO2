@@ -15,23 +15,31 @@ public class SSTF {
 	public void wykonaj(){
 		int obecnyBlok = 50;
 		int poprzedniBlok = 50;
-		for(int i = 0 ; i < dysk.odwolania.size() ; i++){
-			obecnyBlok = dajNajblizszy(obecnyBlok);
-			Blok blok = dysk.bloki[obecnyBlok];
-			blok.odwolania.remove(0);
-			iloscPrzesuniec += Math.abs(obecnyBlok - poprzedniBlok);
-			poprzedniBlok = obecnyBlok;
+		int czas = 0;
+		int wykonaneOdwolania = 0;
+		while(wykonaneOdwolania < dysk.liczbaOdwolan){
+			obecnyBlok = dajNajblizszy(obecnyBlok, czas);
+			if(obecnyBlok == -1){
+				obecnyBlok = poprzedniBlok;
+			} else {
+				Blok blok = dysk.bloki[obecnyBlok];
+				blok.odwolania.remove(0);
+				iloscPrzesuniec += Math.abs(obecnyBlok - poprzedniBlok);
+				poprzedniBlok = obecnyBlok;
+				wykonaneOdwolania++;
+			}
+			czas++;
 		}
 	}
 	
-	public int dajNajblizszy(int obecnyBlok){
+	public int dajNajblizszy(int obecnyBlok, int czas){
 		int i = 0;
 		int j = 0;
 		while(obecnyBlok - i >= 0 || obecnyBlok + j < dysk.bloki.length){
-			if(obecnyBlok - i >= 0 && !dysk.bloki[obecnyBlok - i].odwolania.isEmpty()){
+			if(obecnyBlok - i >= 0 && dysk.czyJestOdwolanieDlaBlokuWCzasie(obecnyBlok - i, czas)){
 				return obecnyBlok - i;
 			}
-			if(obecnyBlok + j < dysk.bloki.length && !dysk.bloki[obecnyBlok + j].odwolania.isEmpty()){
+			if(obecnyBlok + j < dysk.bloki.length && dysk.czyJestOdwolanieDlaBlokuWCzasie(obecnyBlok + j, czas)){
 				return obecnyBlok + j;
 			}
 			i++;

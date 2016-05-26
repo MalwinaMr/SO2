@@ -15,52 +15,57 @@ public class SCAN {
 	public void wykonaj(){
 		int obecnyBlok = 50;
 		int poprzedniBlok = 50;
+		int czas = 0;
+		int wykonaneOdwolania = 0;
 		int kierunek = 1;
-		for(int i = 0 ; i < dysk.odwolania.size() ; ){
+		while(wykonaneOdwolania < dysk.liczbaOdwolan){
 			if(kierunek > 0){
-				obecnyBlok = dajNajblizszyPrawy(obecnyBlok);
-				if(obecnyBlok == dysk.bloki.length - 1 && dysk.bloki[obecnyBlok].odwolania.isEmpty()){
+				obecnyBlok = dajNajblizszyPrawy(obecnyBlok, czas);
+				if(obecnyBlok == dysk.bloki.length){
 					kierunek = -1;
+					obecnyBlok = dysk.bloki.length - 1;
 				} else {
 					Blok blok = dysk.bloki[obecnyBlok];
 					blok.odwolania.remove(0);
-					i++;
+					wykonaneOdwolania++;
 				}
 			} else {
-				obecnyBlok = dajNajblizszyLewy(obecnyBlok);
-				if(obecnyBlok == 0 && dysk.bloki[obecnyBlok].odwolania.isEmpty()){
+				obecnyBlok = dajNajblizszyLewy(obecnyBlok, czas);
+				if(obecnyBlok < 0){
 					kierunek = 1;
+					obecnyBlok = 0;
 				} else {
 					Blok blok = dysk.bloki[obecnyBlok];
 					blok.odwolania.remove(0);
-					i++;
+					wykonaneOdwolania++;
 				}
 			}
 			iloscPrzesuniec += Math.abs(obecnyBlok - poprzedniBlok);
 			poprzedniBlok = obecnyBlok;
+			czas++;
 		}
 	}
 	
-	public int dajNajblizszyPrawy(int obecnyBlok){
+	public int dajNajblizszyPrawy(int obecnyBlok, int czas){
 		int i = 1;
 		while(obecnyBlok + i < dysk.bloki.length){
-			if(obecnyBlok + i < dysk.bloki.length && !dysk.bloki[obecnyBlok + i].odwolania.isEmpty()){
+			if(obecnyBlok + i < dysk.bloki.length && dysk.czyJestOdwolanieDlaBlokuWCzasie(obecnyBlok + i, czas)){
 				return obecnyBlok + i;
 			}
 			i++;
 		}
-		return dysk.bloki.length - 1;
+		return dysk.bloki.length;
 		
 	}
 	
-	public int dajNajblizszyLewy(int obecnyBlok){
+	public int dajNajblizszyLewy(int obecnyBlok, int czas){
 		int i = 1;
 		while(obecnyBlok - i >= 0){
-			if(obecnyBlok - i >= 0 && !dysk.bloki[obecnyBlok - i].odwolania.isEmpty()){
+			if(obecnyBlok - i >= 0 && dysk.czyJestOdwolanieDlaBlokuWCzasie(obecnyBlok - i, czas)){
 				return obecnyBlok - i;
 			}
 			i++;
 		}
-		return 0;
+		return -1;
 	}
 }

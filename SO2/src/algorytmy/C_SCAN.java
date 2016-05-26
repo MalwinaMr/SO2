@@ -15,28 +15,33 @@ public class C_SCAN {
 	public void wykonaj(){
 		int obecnyBlok = 50;
 		int poprzedniBlok = 50;
-		for(int i = 0 ; i < dysk.odwolania.size() ; ){
-			obecnyBlok = dajNajblizszyLewy(obecnyBlok);
-			if(obecnyBlok == 0 && dysk.bloki[obecnyBlok].odwolania.isEmpty()){
-				obecnyBlok = 100;
+		int czas = 0;
+		int wykonaneOdwolania = 0;
+		while(wykonaneOdwolania < dysk.liczbaOdwolan){
+			obecnyBlok = dajNajblizszyLewy(obecnyBlok, czas);
+			if(obecnyBlok < 0){
+				iloscPrzesuniec += Math.abs(0 - poprzedniBlok);
+				obecnyBlok = dysk.bloki.length;
+				poprzedniBlok = 0;
 			} else {
 				Blok blok = dysk.bloki[obecnyBlok];
 				blok.odwolania.remove(0);
-				i++;
+				wykonaneOdwolania++;
 			}
-			iloscPrzesuniec += Math.abs(obecnyBlok - poprzedniBlok);
+			iloscPrzesuniec += Math.abs((obecnyBlok == dysk.bloki.length ? 100 : obecnyBlok)  - poprzedniBlok);
 			poprzedniBlok = obecnyBlok;
+			czas++;
 		}
 	}
 	
-	public int dajNajblizszyLewy(int obecnyBlok){
+	public int dajNajblizszyLewy(int obecnyBlok, int czas){
 		int i = 1;
 		while(obecnyBlok - i >= 0){
-			if(obecnyBlok - i >= 0 && !dysk.bloki[obecnyBlok - i].odwolania.isEmpty()){
+			if(obecnyBlok - i >= 0 && dysk.czyJestOdwolanieDlaBlokuWCzasie(obecnyBlok - i, czas)){
 				return obecnyBlok - i;
 			}
 			i++;
 		}
-		return 0;
+		return -1;
 	}
 }

@@ -7,9 +7,13 @@ import algorytmy.SSTF;
 import model.Dysk;
 
 public class Symulacja {
+	
+	public static final int ILOSC_BLOKOW = 100;
+	public static final int LICZBA_ODWOLAN = 100;
 
 	public static void main(String[] args) {
-		Dysk dysk = new Dysk();
+		Dysk dysk = new Dysk(ILOSC_BLOKOW, LICZBA_ODWOLAN);
+		
 		FCFS fcfs = new FCFS(new Dysk(dysk));
 		fcfs.wykonaj();
 		System.out.println("Iloœæ przesuniêæ FCSF: " + fcfs.iloscPrzesuniec);
