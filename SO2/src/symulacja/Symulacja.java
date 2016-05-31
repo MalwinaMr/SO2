@@ -16,16 +16,28 @@ public class Symulacja {
 		
 		FCFS fcfs = new FCFS(new Dysk(dysk));
 		fcfs.wykonaj();
-		System.out.println("Iloœæ przesuniêæ FCSF: " + fcfs.iloscPrzesuniec);
+		System.out.println("Iloœæ przesuniêæ FCFS: " + fcfs.iloscPrzesuniec);
+		fcfs = new FCFS(new Dysk(dysk));
+		fcfs.real_time();
+		System.out.println("Iloœæ przesuniêæ FCFS - Real Time: " + fcfs.iloscPrzesuniec);
 		SSTF sstf = new SSTF(new Dysk(dysk));
 		sstf.wykonaj();
 		System.out.println("Iloœæ przesuniêæ SSTF: " + sstf.iloscPrzesuniec);
+		sstf = new SSTF(new Dysk(dysk));
+		sstf.real_time();
+		System.out.println("Iloœæ przesuniêæ SSTF - Real Time: " + sstf.iloscPrzesuniec);
 		SCAN scan = new SCAN(new Dysk(dysk));
 		scan.wykonaj();
 		System.out.println("Iloœæ przesuniêæ SCAN: " + scan.iloscPrzesuniec);
+		scan = new SCAN(new Dysk(dysk));
+		scan.real_time();
+		System.out.println("Iloœæ przesuniêæ SCAN - Real Time: " + scan.iloscPrzesuniec);
 		C_SCAN c_scan = new C_SCAN(new Dysk(dysk));
 		c_scan.wykonaj();
 		System.out.println("Iloœæ przesuniêæ C_SCAN: " + c_scan.iloscPrzesuniec);
+		c_scan = new C_SCAN(new Dysk(dysk));
+		c_scan.real_time();
+		System.out.println("Iloœæ przesuniêæ C_SCAN - Real Time: " + c_scan.iloscPrzesuniec);
 	}
 
 }
